@@ -1,23 +1,91 @@
  <html>
  <head>
- 	<title>React App</title>
- <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/6.1.19/browser.min.js"></script>
+ <title>React App</title>
+ <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/15.6.1/react.js"></script>
+ <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/15.6.1/react-dom.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js" crossorigin></script>
+ <link rel="stylesheet" type="text/css" href="style.css">
  </head>
  <body>
-<div id="container">
-	
-</div>
-<script type="text/babel">
-	var destination = document.querySelector("#container");
+ <div id="container">
+ </div>
+ <script type="text/babel">
+ var destination = document.querySelector("#container");
 
-	ReactDOM.render(
-		<div>
-			Hello!
-		</div>,
-		destination
-		);
-</script>
-</body>
-</html>
+ var TodoList = React.createClass({
+ 	getInitialState: function() {
+ 		return {
+ 			items: []
+ 		};
+ 	},
+
+ 	addItem: function(e) {
+ 		var itemArray = this.state.items;
+
+ 		itemArray.push({
+ 			text: this._inputElement.value,
+ 			key: Date.now(),
+ 			delete: this.deleteItem
+ 		});
+ 		this.setState({
+ 			items: itemArray
+ 		});
+
+ 		this._inputElement.value = "";
+ 		e.preventDefault();
+ 	},
+ 	deleteItem: function(key) {
+ 		var filteredItems = this.state.items.filter(function (item) {
+ 			return (item.key !== key);
+ 		});
+
+ 		this.setState({
+ 			items: filteredItems
+ 		});
+ 	},
+
+ 	render: function() {
+ 		return (
+ 			<div className="todoListMain">
+ 			<h1>To Do List</h1>
+ 			<div className="header">
+ 			<form onSubmit={this.addItem}>
+ 			<input ref={ (a) => this._inputElement = a } placeholder="enter task"></input>
+ 			<button type="submit">add</button>
+ 			</form>
+ 			</div>
+ 			<TodoItems entries={this.state.items} delete={this.deleteItem} />
+ 			</div>
+ 			);
+ 	}
+ });
+
+
+ var TodoItems = React.createClass({
+ 	render: function() {
+ 		var todoEntries = this.props.entries;
+ 		var delItem = this.props.delete;
+
+ 		function createTasks(item) {
+ 			return <li onClick={() => item.delete(item.key)} key={item.key}>{item.text}</li>
+ 		}
+
+ 		var listItems = todoEntries.map(createTasks);
+
+ 		return (
+ 			<ul className="theList">
+ 			{listItems}
+ 			</ul>
+ 			);
+ 	}
+ });
+
+ ReactDOM.render(
+ 	<div>
+ 	<TodoList />
+ 	</div>,
+ 	destination
+ 	);
+ </script>
+ </body>
+ </html>

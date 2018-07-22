@@ -1,15 +1,65 @@
 body {
-	width: 40rem;
-	margin: 1rem auto;
+	padding: 50px;
+	background-color: #222;
 	font-family: sans-serif;
+	-moz-box-shadow:    inset 0 0 100px #000000;
+	-webkit-box-shadow: inset 0 0 100px #000000;
+	box-shadow:         inset 0 0 100px #000000;
 }
-a {
-	color: black;
+#container {
+	display: flex;
+	justify-content: center;
 }
-li {
-	margin-bottom: 0.5rem;
+.todoListMain h1 {
+	color : white;
+	text-align: center;
+	font-size: 48px;
 }
-input {
-	padding: 0.25rem;
-	font-size: 1rem;
+.todoListMain .header form {
+	margin-bottom: 36px;
+}
+.todoListMain .header input {
+	padding: 10px;
+	font-size: 14px;
+	box-shadow: 0 0 10px #333;
+	border-radius: 3px;
+	width: 400px;
+	border: none;
+}
+.todoListMain .header button {
+	padding: 10px;
+	font-size: 14px;
+	border-radius: 3px;
+	border: none;
+	background-color: #0066FF;
+	color: #FFF;
+	font-weight: 800;
+	text-transform: uppercase;
+	margin-left: 10px;
+}
+.todoListMain .header button:hover {
+	background-color: #003399;
+	cursor: pointer;
+}
+.todoListMain .theList {
+	list-style: none;
+	padding-left: 0;
+	width: 460px;
+} 
+ul.theList {
+	padding: 0;
+}
+.todoListMain .theList li {
+	color: #333;
+	background-color: rgba(255,255,255,.8);
+	padding: 15px;
+	margin-bottom: 15px;
+	border-radius: 5px;
+
+	transition: background-color .2s ease-out;
+}
+
+.todoListMain .theList li:hover {
+	background-color: pink;
+	cursor: pointer;
 }
